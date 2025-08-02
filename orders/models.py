@@ -14,14 +14,11 @@ class Order(models.Model):
     
 # OrderItem Model Table
 class OrderItem(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    order = models.ForeignKey(Order, on_delete=models.CASCADE, blank=True)
     item_name = models.CharField(max_length=100)
     item_price = models.DecimalField(decimal_places=2, max_digits=10)
     qnty = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.total
-
-    def total_amount(self):
-        return self.item_price * self.qnty
+        return self.item_name
