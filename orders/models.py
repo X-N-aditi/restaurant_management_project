@@ -17,8 +17,11 @@ class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     item_name = models.CharField(max_length=100)
     item_price = models.DecimalField(decimal_places=2, max_digits=10)
-    quantity = models.PositiveIntegerField(default=0)
+    qnty = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return self.item_price and self.quantity
+        return self.total
+
+    def total_amount(self):
+        return self.item_price * self.qnty
