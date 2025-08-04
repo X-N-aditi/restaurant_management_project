@@ -41,3 +41,24 @@ class BlogSearchAPIView(APIView):
             posts = BlogPost.objects.none()
             serializers = BlogPostSerializer(posts, many=True)
             return Response(serializers.data, status=status.HTTP_200_OK)
+
+
+# pagination.py
+
+from rest_framework.pagination import PageNumberPagination
+
+class CustomePageNumberPagination(PageNumberPagination):
+    page_size = 5
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
+# view.py
+
+from .pagination import CustomePageNumberPagination
+from .serializers import BlogPostSerializer
+from rest_framework.generics import ListAPIView
+
+class BlogPostListView(ListAPIView):
+    serializer_class = BlogPostSerializer
+    pagination_class = CustomePageNumberPagination
