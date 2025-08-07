@@ -42,3 +42,16 @@ class Order(models.Model):
 
     def __str__(self):
         return f"(self.customer) total payable amount: {self.total_amount}"
+
+
+# API
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import Menu
+from .serializers import MenuSerializer
+
+class restaurant_menu_list_apiview(APIView):
+    menu = Menu.objects.all()
+    serializer = MenuSerializer(menu, many=True)
+    return Response(serializer.data)    
+
