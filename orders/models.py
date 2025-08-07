@@ -50,8 +50,9 @@ from rest_framework.views import APIView
 from .models import Menu
 from .serializers import MenuSerializer
 
-class restaurant_menu_list_apiview(APIView):
-    menu = Menu.objects.all()
-    serializer = MenuSerializer(menu, many=True)
-    return Response(serializer.data)    
+class MenuListAPI(APIView):
+    def get(self, request):
+        menu_items = Menu.objects.all()
+        serializer = MenuSerializer(menu_items, many=True)
+        return Response(serializer.data)    
 
