@@ -22,3 +22,23 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return self.item_name
+
+
+from .models import User, Menu
+from django.db import models
+
+class Order(models.Model):
+    ORDER_STATUS_CHOICES = (
+        ('pending', 'Pending'),
+        ('completed', 'Completed'),
+        ('cancelled', 'Cancelled'),
+    )
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    menu = models.ForeignKey(Menu, on_delete=models.CASCADE)
+    customer = models.CharField(max_length=100)
+    order_items = models.CharField(max_length=500)
+    total_amount = models.DecimalField(max_digits=8, decimal_places=2)
+    order_status = models.CharField(max_length=15, choices=ORDER_STATUS_CHOICES)
+
+    def __str__(self):
+        return f"(self.customer) total payable amount: {self.total_amount}"
