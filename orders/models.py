@@ -95,3 +95,4 @@ class MenuAdmin(admin.ModelAdmin):
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     fields = '__all__'
+    
