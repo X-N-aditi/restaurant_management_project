@@ -69,12 +69,12 @@ urlpatterns = [
 
 # display menu on template
 
-import request
+import requests
 from django.shortcuts import render
 
 def home_view(request):
     try:
-        response = request.get("htttp://localhost:8000/api/menu")
+        response = requests.get("http://localhost:8000/api/menu")
         menu_data = response.json()
     except:
         menu_data = []
