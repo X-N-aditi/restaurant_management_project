@@ -80,3 +80,18 @@ def home_view(request):
         menu_data = []
 
     return render(request, 'home/home.html', {'menu': menu_data})
+
+
+
+# admin panel
+
+from django.contrib import admin
+from .models import Menu , Order
+
+@admin.register(Menu)
+class MenuAdmin(admin.ModelAdmin):
+    fields = '__all__'
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    fields = '__all__'
