@@ -56,3 +56,27 @@ class MenuListAPI(APIView):
         serializer = MenuSerializer(menu_items, many=True)
         return Response(serializer.data)    
 
+
+# url
+
+from django.urls import path
+from .views import MenuListAPI
+
+urlpatterns = [
+    path('api/menu/', MenuListAPI.as_view(), name='menu-list'),
+]
+
+
+# display menu on template
+
+import request
+from django.shortcuts import render
+
+def home_view(request):
+    try:
+        response = request.get("htttp://localhost:8000/api/menu")
+        menu_data = response.json()
+    except:
+        menu_data = []
+
+    return render(request, 'home/home.html', {'menu': menu_data})
