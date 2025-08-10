@@ -96,3 +96,14 @@ class MenuAdmin(admin.ModelAdmin):
 class OrderAdmin(admin.ModelAdmin):
     fields = '__all__'
     
+#-------------------------------------------------------------------------------------------------------------------------
+
+# views.py
+
+from django.shortcuts import render
+from .models import Restaurant
+
+def home(request):
+    restaurant = Restaurant.objects.first()
+    restaurant_name = restaurant.name if restaurant else "My Restaurant"
+    return render(request, 'home/home.html', {'restaurant_name':restaurant_name})
