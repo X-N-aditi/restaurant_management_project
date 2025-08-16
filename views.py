@@ -1,16 +1,15 @@
-from django.shortcuts import render
+from .models import Blog
+from .serializers import BlogSerializer
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-def menu_lists(request):
-    menu_items = {
-        {
-            "name": "Red Sauce Pasta",
-            "price": 300,
-            "description": "Red tomato pasta with rosemary-leaf"
-        }
-        {
-            "name": "Margherita Pizza",
-            "price": 400,
-            "description": "Cheeze pizza with basil-leaf"
-        }
-    }
-    return render(request, 'menu_list.html', {"menu_items": menu_items})
+class Blog_view(APIView):
+    def get(request):
+        # try-except block to error handle from database
+        try:
+            blog = Blog.objects.all()
+        except Blog.DoesNotExist:
+            return Response({'error': 'Blog not found'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = BlogSerializer(blog, many=True)
+        return Response(serializer.data, status=status_HTTP_200_OK)
