@@ -2,6 +2,17 @@
 <html>
     <head>
         <meta charset='UTF-8'>
-        <meta name='viewport' 
+        <meta name='viewport' width='device-width, initial-scale=1.0'>
+        <title>Feedback Form</title>
     </head>
+    <body>
+        <div>
+            <h2>Feedback Form</h2>
+            <form method='post'>
+                {% csrf_token %}
+                    {{ form.as_p }}
+                <button type='submit'>Submit Feedback</button>
+            </form>
+        </div>
+    </body>
 </html>
